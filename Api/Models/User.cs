@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace Api.Models
         [MinLength(3)]
         public string Name { get; set; }
 
+        [JsonIgnore]
         public virtual List<Message> Messages{ get; set; }
     }
 }
