@@ -29,7 +29,7 @@ namespace Api.Repositories
                 return await Context.Users.AsNoTracking().ToListAsync();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> Detail(int id)
         {
                 return await Context.Users
                     .AsNoTracking()

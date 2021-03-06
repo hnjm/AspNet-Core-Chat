@@ -34,5 +34,11 @@ namespace Api.Controllers
         {
             return await Repository.List();
         }
+
+        [HttpGet("{id}")]
+        public async Task<User> Detail([FromRoute] int id)
+        {
+            return await Repository.Detail(id);
+        }
     }
 }
