@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,13 @@ namespace Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddJsonOptions(opt =>
+                {
+                    opt.JsonSerializerOptions.IgnoreNullValues = true;
+                });
+
 
             #region Database
             services.AddDbContext<Context>(opt =>
@@ -38,7 +45,17 @@ namespace Api
                     Configuration.GetConnectionString("Default")));
 
             // Garante que eu tenha um contexto por requisição
-            services.AddScoped<Context, Context>();
+            services.AddTransient<Context, Context>();
+            #endregion
+
+            #region Swagger
+
+            services.AddSwaggerGen(op =>
+            {
+                op.SwaggerDoc("v1", new OpenApiInfo { Title = "Chat API", Version = "v1" });
+
+            });
+
             #endregion
         }
 
@@ -50,8 +67,13 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Chat API");
+            });
 
+            app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
