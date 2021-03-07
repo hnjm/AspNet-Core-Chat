@@ -1,5 +1,5 @@
 ﻿using Api.Database;
-using Api.Models;
+using Core.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

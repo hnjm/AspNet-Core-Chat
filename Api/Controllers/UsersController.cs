@@ -1,6 +1,6 @@
 ﻿using Api.Database;
-using Api.Models;
 using Api.Repositories;
+using Core.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

@@ -1,4 +1,4 @@
-﻿using Api.Models;
+﻿using Core.Data.Entities;
 using Api.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
